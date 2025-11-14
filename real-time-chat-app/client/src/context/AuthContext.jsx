@@ -1,54 +1,40 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import api from "../api/api";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Sayfa yenilenince localStorage'daki kullanıcıyı geri yükle
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const stored = localStorage.getItem("user");
+    if (stored) setUser(JSON.parse(stored));
   }, []);
 
-  const API_URL = import.meta.env.VITE_API_URL;
-
-  // Kullanıcı kayıt ol
-  const register = async (username, password) => {
-    const res = await fetch(`${API_URL}/api/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || "Kayıt başarısız");
-    localStorage.setItem("user", JSON.stringify(data));
-    setUser(data);
-  };
-
-  // Kullanıcı giriş yap
+  // login using API call
   const login = async (username, password) => {
-    const res = await fetch(`${API_URL}/api/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || "Giriş başarısız");
-    localStorage.setItem("user", JSON.stringify(data));
-    setUser(data);
+    const res = await api.post("/auth/login", { username, password });
+    const data = res.data;
+    // server returns { token, user } on login (as in provided server example)
+    localStorage.setItem("user", JSON.stringify(data.user || data));
+    setUser(data.user || data);
+    return data;
   };
 
-  // Çıkış
+  // register then login
+  const register = async (username, password) => {
+    await api.post("/auth/register", { username, password });
+    // after register, call login to get token/user
+    return await login(username, password);
+  };
+
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

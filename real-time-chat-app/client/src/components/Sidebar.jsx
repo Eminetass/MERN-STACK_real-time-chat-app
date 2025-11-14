@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/api";
 import { useAuth } from "../context/AuthContext";
 
@@ -7,54 +7,29 @@ export default function Sidebar() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    (async () => {
       try {
-        const { data } = await api.get("/users");
-        setUsers(data);
+        const res = await api.get("/users"); // server tarafında /api/users olmalı
+        setUsers(res.data);
       } catch (err) {
-        console.error("Kullanıcılar alınamadı:", err);
+        console.error(err);
       }
-    };
-    fetchUsers();
+    })();
   }, []);
 
   return (
-    <div
-      style={{
-        width: "250px",
-        backgroundColor: "#fff",
-        borderRight: "1px solid #ddd",
-        padding: "10px",
-      }}
-    >
-      <h3>Hoşgeldin, {user?.username}</h3>
-      <button
-        onClick={logout}
-        style={{
-          width: "100%",
-          backgroundColor: "#ff4d4f",
-          color: "white",
-          padding: "6px",
-          border: "none",
-          cursor: "pointer",
-          marginTop: "5px",
-        }}
-      >
-        Çıkış Yap
-      </button>
+    <div style={{ width: 260, background: "#fff", borderRight: "1px solid #ddd", padding: 12 }}>
+      <div style={{ marginBottom: 12 }}>
+        <strong>{user?.username}</strong>
+        <div>
+          <button onClick={logout} style={{ marginTop: 8 }}>Çıkış</button>
+        </div>
+      </div>
 
-      <h4 style={{ marginTop: "20px" }}>Kullanıcılar</h4>
+      <h4>Kullanıcılar</h4>
       <ul style={{ listStyle: "none", padding: 0 }}>
-        {users.map((u) => (
-          <li
-            key={u._id}
-            style={{
-              padding: "6px",
-              background: "#f5f5f5",
-              margin: "4px 0",
-              borderRadius: "5px",
-            }}
-          >
+        {users.map(u => (
+          <li key={u._id} style={{ padding: 8, borderRadius: 6, background: "#f5f5f5", marginBottom: 6 }}>
             {u.username}
           </li>
         ))}

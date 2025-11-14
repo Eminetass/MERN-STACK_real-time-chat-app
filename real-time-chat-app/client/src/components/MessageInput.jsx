@@ -6,33 +6,17 @@ export default function MessageInput() {
   const [text, setText] = useState("");
   const { user } = useAuth();
 
-  const sendMessage = () => {
+  const send = () => {
     if (!text.trim()) return;
-    socket.emit("sendMessage", { user: user.username, text });
+    const msg = { sender: user.username, content: text };
+    socket.emit("send:message", msg); // server expects "send:message"
     setText("");
   };
 
   return (
-    <div style={{ display: "flex", padding: "10px", background: "#fff" }}>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Mesaj yaz..."
-        style={{ flex: 1, padding: "8px" }}
-      />
-      <button
-        onClick={sendMessage}
-        style={{
-          marginLeft: "10px",
-          padding: "8px 16px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        Gönder
-      </button>
+    <div style={{ display: "flex", padding: 8, background: "#fff", borderTop: "1px solid #ddd" }}>
+      <input value={text} onChange={e => setText(e.target.value)} placeholder="Mesaj yaz..." style={{ flex: 1, padding: 8 }} />
+      <button onClick={send} style={{ marginLeft: 8, padding: "8px 12px" }}>Gönder</button>
     </div>
   );
 }
