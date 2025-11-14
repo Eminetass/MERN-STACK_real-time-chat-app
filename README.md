@@ -112,7 +112,7 @@ real-time-chat-app/
 git clone https://github.com/<KULLANICI_ADI>/MERN-STACK_real-time-chat-app.git
 cd MERN-STACK_real-time-chat-app/real-time-chat-app
 
-🖥️ Backend Kurulumu (server)
+## 🖥️ Backend Kurulumu (server)
 cd server
 npm install
 
@@ -125,18 +125,20 @@ MONGO_URI=mongodb://localhost:27017/chatapp
 JWT_SECRET=supersecretkey
 CLIENT_URL=http://localhost:5173
 
-Sunucuyu Başlat
-npm run dev
-# veya
-npm start
 
+Sunucuyu Başlat 
+```bash
+npm run dev
+veya
+npm start
+```
 
 Başarılı çalışınca:
 
 ✅ Server 5000 portunda çalışıyor
 ✅ MongoDB bağlantısı başarılı
 
-💻 Frontend Kurulumu (client)
+## 💻 Frontend Kurulumu (client)
 
 Yeni bir terminal aç:
 
@@ -157,8 +159,7 @@ Ardından tarayıcıda:
 
 http://localhost:5173
 
-🔐 Kimlik Doğrulama Akışı
-
+## 🔐 Kimlik Doğrulama Akışı
 Kullanıcı kayıt olur → backend şifreyi hashleyip MongoDB’ye kaydeder.
 
 Giriş yapıldığında backend JWT üretir → frontend’e gönderir.
@@ -167,7 +168,7 @@ Frontend, token ve kullanıcıyı localStorage’a kaydeder.
 
 Kullanıcı /chat sayfasına yönlendirilir.
 
-🔌 Socket.io Olay Akışı
+## 🔌 Socket.io Olay Akışı
 Client → Server
 
 join — kullanıcı giriş yapınca
@@ -184,7 +185,7 @@ user:offline — kullanıcı ayrıldı
 
 Event isimleri client ve server arasında birebir uyumludur.
 
-🌐 API Endpoint’leri
+## 🌐 API Endpoint’leri
 Auth
 POST /api/auth/register
 
@@ -204,38 +205,38 @@ GET /api/messages/:receiverId
 
 Belirli iki kullanıcı arasındaki mesaj geçmişini döner.
 
-🧪 Geliştirilebilecek Özellikler
+## 🧪 Geliştirilebilecek Özellikler
 
-Özel mesajlaşma (private chat)
+- Özel mesajlaşma (private chat)
 
-Oda sistemi / grup sohbetleri
+- Oda sistemi / grup sohbetleri
 
-Mesaj geçmişinin MongoDB’ye kaydı
+- Mesaj geçmişinin MongoDB’ye kaydı
 
-Yazıyor... bildirimi (typing indicator)
+- Yazıyor... bildirimi (typing indicator)
 
-Okundu bilgisi (read receipts)
+- Okundu bilgisi (read receipts)
 
-Kullanıcı avatarları
+- Kullanıcı avatarları
 
-Responsive tasarım
+- Responsive tasarım
 
-Bildirim sistemi
+- Bildirim sistemi
 
-🎯 Projenin Amacı
+## 🎯 Projenin Amacı
 
 Bu proje ile:
 
-Gerçek zamanlı WebSocket mantığı
+- Gerçek zamanlı WebSocket mantığı
 
-Socket.io ile event-driven mimari
+- Socket.io ile event-driven mimari
 
-JWT doğrulama akışı
+- JWT doğrulama akışı
 
-MongoDB veritabanı yönetimi
+- MongoDB veritabanı yönetimi
 
-React + Vite SPA geliştirme
+- React + Vite SPA geliştirme
 
-Client – Server entegrasyonu
+- Client – Server entegrasyonu
 
 gibi modern web geliştirme teknikleri uygulanmıştır.
