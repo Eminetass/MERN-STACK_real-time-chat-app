@@ -101,8 +101,8 @@ real-time-chat-app/
     ├── package.json
     └── vite.config.js
 
-'''
 
+bash```
 
 
 
