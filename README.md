@@ -169,39 +169,39 @@ Frontend, token ve kullanıcıyı localStorage’a kaydeder.
 Kullanıcı /chat sayfasına yönlendirilir.
 
 ## 🔌 Socket.io Olay Akışı
-Client → Server
+# Client → Server
 
-join — kullanıcı giriş yapınca
+- join — kullanıcı giriş yapınca
 
-send:message — mesaj gönderme olayı
+- send:message — mesaj gönderme olayı
 
-Server → Client
+# Server → Client
 
-receive:message — tüm kullanıcılara mesaj yayını
+- receive:message — tüm kullanıcılara mesaj yayını
 
-user:online — kullanıcı bağlandı
+- user:online — kullanıcı bağlandı
 
-user:offline — kullanıcı ayrıldı
+- user:offline — kullanıcı ayrıldı
 
 Event isimleri client ve server arasında birebir uyumludur.
 
 ## 🌐 API Endpoint’leri
-Auth
-POST /api/auth/register
+- Auth
+POST ``` /api/auth/register ```
 
 Kullanıcı kaydı.
 
-POST /api/auth/login
+POST ``` /api/auth/login ```
 
 JWT üretir.
 
-Users
-GET /api/users
+- Users
+GET ``` /api/users  ```
 
 Sistemdeki tüm kullanıcıları listeler.
 
-Messages (Genişletmeye uygun)
-GET /api/messages/:receiverId
+- Messages (Genişletmeye uygun)
+GET ``` /api/messages/:receiverId ```
 
 Belirli iki kullanıcı arasındaki mesaj geçmişini döner.
 
