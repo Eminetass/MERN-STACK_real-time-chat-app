@@ -102,7 +102,7 @@ real-time-chat-app/
     └── vite.config.js
 
 
-bash```
+```
 
 
 
